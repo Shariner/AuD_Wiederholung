@@ -41,28 +41,28 @@ public class main {
             return counter;
     }
 
-
-    public static void main(String[] args) throws IOException {
-        //System.out.println(proz2(8));
-
+    static void uebung1() throws FileNotFoundException {
         File file = new File("artikel.ser");
         try(FileOutputStream fos = new FileOutputStream(file);
-        ObjectOutputStream oos = new ObjectOutputStream(fos)){
+            ObjectOutputStream oos = new ObjectOutputStream(fos)){
             Artikel artikel = new Artikel(1, "Base Cap", 42);
             oos.writeObject(artikel);
             artikel.setBezeichnung("Baum");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Artikel.rabatt = 5.0;
 
 
         try(FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis)){
+            ObjectInputStream ois = new ObjectInputStream(fis)){
             System.out.println(ois.readObject());
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
+    }
 
-
+    static void uebung2(){
         List<Buch> buecher = new ArrayList<>();
         buecher.add(new Buch("Land of Lisp"));
         buecher.add(new Buch("Java ist auch eine Insel"));
@@ -76,6 +76,21 @@ public class main {
         it = buecher.iterator();
         while(it.hasNext())
             System.out.println(it.next().getTitel());
+    }
+
+    static void uebung3() throws IOException, ClassNotFoundException {
+        VeranstaltungsManager haupt = new VeranstaltungsManager();
+        //haupt.addVeranstaltung(new Veranstaltung("Defqon 1.", false));
+        //haupt.export();
+        haupt.importing();
+        System.out.println(haupt.toString());
+    }
+
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //System.out.println(proz2(8));
+        uebung3();
+
     }
 
 }
