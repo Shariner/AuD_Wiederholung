@@ -348,7 +348,7 @@ public class Baum<T extends Comparable<T>>
 		if(einKnoten.getKnotenLinks()!= null){
 			rueck += traversierePreOrder(einKnoten.getKnotenLinks());
 		}
-		
+
 		if(einKnoten.getKnotenRechts() != null){
 			rueck+= traversierePreOrder(einKnoten.getKnotenRechts());
 		}
