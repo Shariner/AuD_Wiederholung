@@ -14,17 +14,16 @@ public class Zentrale implements Runnable {
         int warten;
         while(!Thread.currentThread().isInterrupted()){
             synchronized (auftraege){
-                if(auftraege.size()<10){
+
                     Random rnd = new Random();
                     warten = rnd.nextInt(5000);
                     auftraege.add(new Kunde(warten));
                     System.out.println("Auftrag angelegt mit Wartezeit: "+warten);
                     auftraege.notifyAll();
-                }
 
             }
             try {
-                Thread.sleep((int) Math.random()*500);
+                Thread.sleep((int)Math.random()*500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

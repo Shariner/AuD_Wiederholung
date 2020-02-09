@@ -14,17 +14,18 @@ public class Taxi implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            while (auftraege.isEmpty()) {
+            while (!auftraege.isEmpty()) {
                 try {
                     synchronized (auftraege) {
                         while (auftraege.isEmpty()) {
-                            System.out.println("Warte auf Auftrag");
+                            System.out.println("Taxi: "+nummer+" wartet auf Auftrag");
                             auftraege.wait();
                         }
                         int fahrzeit = auftraege.get(0).getFahrzeit();
                         System.out.println("Taxi Nummer : "+nummer+" bearbeitet Auftrag mit Zeit: "+fahrzeit);
                         auftraege.remove(0);
                         Thread.sleep(fahrzeit);
+                        System.out.println("Taxi Nummer: "+nummer+" ist wieder frei!");
                     }
 
                 } catch (InterruptedException exp) {
