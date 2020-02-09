@@ -26,4 +26,9 @@ public class Veranstaltung extends VeranstaltungsManager{
         this.name = name;
         this.isausgebucht = isausgebucht;
     }
+
+    @Override
+    public String toString(){
+        return "Name: "+name+", Ausgebucht: "+isausgebucht;
+    }
 }

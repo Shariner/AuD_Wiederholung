@@ -4,8 +4,9 @@ import java.awt.event.ActionEvent;
 import java.beans.EventHandler;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class VeranstaltungsManager implements Serializable {
+public class VeranstaltungsManager extends Observable implements Serializable{
     private static final long SerialVersionUID = 1L;
     private ArrayList<Veranstaltung> liste;
     private File file = new File("export.ser");
@@ -15,7 +16,8 @@ public class VeranstaltungsManager implements Serializable {
 
     public void addVeranstaltung(Veranstaltung v){
         liste.add(v);
-        Monitor.zeigeMeldung(v);
+        setChanged();
+        notifyObservers(v);
     }
 
     public void export() throws IOException {
@@ -33,13 +35,11 @@ public class VeranstaltungsManager implements Serializable {
     @Override
     public String toString(){
         String rueck = "";
-        /*
-        for(int i = 0; i<liste.size(); i++)
-            rueck += "Name: "+liste.get(i).getName()+", Ausgebucht: "+liste.get(i).getisIsausgebucht();
-            */
-         for(Veranstaltung s :liste)
-             rueck += "Name: "+s.getName()+", Ausgebucht: "+s.getisIsausgebucht();
-
+        for(Veranstaltung s: liste)
+            rueck += s.toString()+"\n";
+        rueck += "----------------";
         return rueck;
     }
+
+
 }

@@ -1,10 +1,7 @@
 package KlausurSachen;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class main {
     static int proz1(int n){
@@ -80,10 +77,17 @@ public class main {
 
     static void uebung3() throws IOException, ClassNotFoundException {
         VeranstaltungsManager haupt = new VeranstaltungsManager();
-        //haupt.addVeranstaltung(new Veranstaltung("Defqon 1.", false));
+
+        Obs penis = new Obs();
+
+        haupt.addObserver(penis);
+
+
+        haupt.addVeranstaltung(new Veranstaltung("Defqon 1.", false));
         //haupt.export();
-        haupt.importing();
-        System.out.println(haupt.toString());
+        //haupt.importing();
+        //System.out.println(haupt.toString());
+        haupt.addVeranstaltung(new Veranstaltung("Rock am Ring", true));
     }
 
 
