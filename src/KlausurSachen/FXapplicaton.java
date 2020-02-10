@@ -6,12 +6,16 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.util.Random;
+
+import static javafx.application.Platform.exit;
 
 public class FXapplicaton extends Application {
 
@@ -22,24 +26,18 @@ public class FXapplicaton extends Application {
     @Override
     public void start(Stage primaryStage) {
         String[] farben = {"Black", "Green", "Blue", "White", "Yellow", "Orange"};
-        VBox box = new VBox();
-        box.setAlignment(Pos.CENTER);
-        box.setSpacing(50);
+        BorderPane box = new BorderPane();
+        VBox buttons = new VBox();
         Scene szene = new Scene(box, 300, 300);
         primaryStage.setTitle("Groessenwechsel");
 
 
         Circle kreis = new Circle(300, 300, 50, Paint.valueOf("White"));
-        box.getChildren().add(kreis);
+        box.setCenter(kreis);
 
         Button knopf = new Button("Andere Grösse");
-        knopf.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Random rnd = new Random();
-                kreis.setRadius(rnd.nextInt(100));
-            }
-        });
+        Outer o = new Outer(kreis);
+        knopf.setOnAction(o);
 
         Button knopf2 = new Button("Farbwechsel");
         knopf2.setOnAction(new EventHandler<ActionEvent>() {
@@ -50,9 +48,24 @@ public class FXapplicaton extends Application {
 
             }
         });
+        Label label = new Label("Wilkommen bei der Klausur");
 
-        box.getChildren().add(knopf);
-        box.getChildren().add(knopf2);
+        Button delete = new Button("löschen und beenden in 5sek");
+        delete.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                box.getChildren().removeAll(kreis);
+                exit();
+
+            }
+        });
+        buttons.getChildren().addAll(knopf, knopf2, delete);
+        buttons.setAlignment(Pos.CENTER);
+        box.setBottom(buttons);
+        buttons.setSpacing(5.5);
+        box.setTop(label);
+        BorderPane.setAlignment(label, Pos.CENTER);
+        //BorderPane.setAlignment(knopf, Pos.CENTER_RIGHT);
 
 
         primaryStage.setScene(szene);
