@@ -14,7 +14,6 @@ public class Taxi implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            while (!auftraege.isEmpty()) {
                 try {
                     synchronized (auftraege) {
                         while (auftraege.isEmpty()) {
@@ -30,7 +29,6 @@ public class Taxi implements Runnable {
 
                 } catch (InterruptedException exp) {
                     exp.printStackTrace();
-                }
             }
         }
     }
