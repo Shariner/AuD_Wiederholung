@@ -21,16 +21,18 @@ public class FXapplicaton extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        String[] farben = {"Black", "Green", "Blue", "White", "Yellow", "Orange"};
         VBox box = new VBox();
         box.setAlignment(Pos.CENTER);
+        box.setSpacing(50);
         Scene szene = new Scene(box, 300, 300);
-        primaryStage.setTitle("Größenwechsel");
+        primaryStage.setTitle("Groessenwechsel");
 
 
-        Circle kreis = new Circle(300, 300, 50, Paint.valueOf("Black"));
+        Circle kreis = new Circle(300, 300, 50, Paint.valueOf("White"));
         box.getChildren().add(kreis);
 
-        Button knopf = new Button("Andere Größe");
+        Button knopf = new Button("Andere Grösse");
         knopf.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -39,7 +41,19 @@ public class FXapplicaton extends Application {
             }
         });
 
+        Button knopf2 = new Button("Farbwechsel");
+        knopf2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Random rnd = new Random();
+                kreis.setFill(Paint.valueOf(farben[rnd.nextInt(farben.length)]));
+
+            }
+        });
+
         box.getChildren().add(knopf);
+        box.getChildren().add(knopf2);
+
 
         primaryStage.setScene(szene);
         primaryStage.show();
