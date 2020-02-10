@@ -15,6 +15,7 @@ public class Zentrale implements Runnable {
         while(!Thread.currentThread().isInterrupted()){
             synchronized (auftraege){
 
+
                     Random rnd = new Random();
                     warten = rnd.nextInt(5000);
                     auftraege.add(new Kunde(warten));
@@ -23,7 +24,7 @@ public class Zentrale implements Runnable {
 
             }
             try {
-                Thread.sleep((int)Math.random()*500);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
